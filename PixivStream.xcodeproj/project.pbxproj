@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE5D5D41183FA3D900C8D309 /* PSApplicationKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */; };
+		CE5D5D44183FABAB00C8D309 /* PSTaskScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */; };
 		CE7BF34A183F998C00315887 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF349183F998C00315887 /* Cocoa.framework */; };
 		CE7BF354183F998C00315887 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF352183F998C00315887 /* InfoPlist.strings */; };
 		CE7BF356183F998C00315887 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF355183F998C00315887 /* main.m */; };
@@ -33,6 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE5D5D3F183FA3D900C8D309 /* PSApplicationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSApplicationKey.h; sourceTree = "<group>"; };
+		CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSApplicationKey.m; sourceTree = "<group>"; };
+		CE5D5D42183FABAB00C8D309 /* PSTaskScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSTaskScheduler.h; path = ../PSTaskScheduler.h; sourceTree = "<group>"; };
+		CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSTaskScheduler.m; path = ../PSTaskScheduler.m; sourceTree = "<group>"; };
 		CE7BF346183F998C00315887 /* PixivStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixivStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7BF349183F998C00315887 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		CE7BF34C183F998C00315887 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -124,6 +130,10 @@
 				CE7BF35C183F998C00315887 /* PSAppDelegate.m */,
 				CEC96416183FA1330044E5FE /* PSPreferenceWindowController.h */,
 				CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */,
+				CE5D5D3F183FA3D900C8D309 /* PSApplicationKey.h */,
+				CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */,
+				CE5D5D42183FABAB00C8D309 /* PSTaskScheduler.h */,
+				CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */,
 				CE7BF35E183F998C00315887 /* MainMenu.xib */,
 				CE7BF37D183F9DAA00315887 /* Preferences.xib */,
 				CE7BF361183F998C00315887 /* Images.xcassets */,
@@ -263,6 +273,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7BF356183F998C00315887 /* main.m in Sources */,
+				CE5D5D44183FABAB00C8D309 /* PSTaskScheduler.m in Sources */,
+				CE5D5D41183FA3D900C8D309 /* PSApplicationKey.m in Sources */,
 				CEC96418183FA1330044E5FE /* PSPreferenceWindowController.m in Sources */,
 				CE7BF35D183F998C00315887 /* PSAppDelegate.m in Sources */,
 			);
