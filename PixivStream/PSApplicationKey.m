@@ -8,5 +8,5 @@
 
 #import "PSApplicationKey.h"
 
-NSString const * kPSUserDefaultsRefreshIntervalKey = @"refreshInterval";
-NSString const * kPSUserDefaultsMaxDisplayCountKey = @"displayCount";
+NSString * const kPSUserDefaultsRefreshIntervalKey = @"refreshInterval";
+NSString * const kPSUserDefaultsMaxDisplayCountKey = @"displayCount";
