@@ -18,6 +18,8 @@
 		CE7BF36A183F998C00315887 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF349183F998C00315887 /* Cocoa.framework */; };
 		CE7BF372183F998C00315887 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF370183F998C00315887 /* InfoPlist.strings */; };
 		CE7BF374183F998C00315887 /* PixivStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF373183F998C00315887 /* PixivStreamTests.m */; };
+		CE7BF37E183F9DAA00315887 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF37D183F9DAA00315887 /* Preferences.xib */; };
+		CEC96418183FA1330044E5FE /* PSPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,9 @@
 		CE7BF36F183F998C00315887 /* PixivStreamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PixivStreamTests-Info.plist"; sourceTree = "<group>"; };
 		CE7BF371183F998C00315887 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CE7BF373183F998C00315887 /* PixivStreamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixivStreamTests.m; sourceTree = "<group>"; };
+		CE7BF37D183F9DAA00315887 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		CEC96416183FA1330044E5FE /* PSPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPreferenceWindowController.h; sourceTree = "<group>"; };
+		CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPreferenceWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +122,10 @@
 			children = (
 				CE7BF35B183F998C00315887 /* PSAppDelegate.h */,
 				CE7BF35C183F998C00315887 /* PSAppDelegate.m */,
+				CEC96416183FA1330044E5FE /* PSPreferenceWindowController.h */,
+				CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */,
 				CE7BF35E183F998C00315887 /* MainMenu.xib */,
+				CE7BF37D183F9DAA00315887 /* Preferences.xib */,
 				CE7BF361183F998C00315887 /* Images.xcassets */,
 				CE7BF350183F998C00315887 /* Supporting Files */,
 			);
@@ -235,6 +243,7 @@
 				CE7BF362183F998C00315887 /* Images.xcassets in Resources */,
 				CE7BF35A183F998C00315887 /* Credits.rtf in Resources */,
 				CE7BF360183F998C00315887 /* MainMenu.xib in Resources */,
+				CE7BF37E183F9DAA00315887 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE7BF356183F998C00315887 /* main.m in Sources */,
+				CEC96418183FA1330044E5FE /* PSPreferenceWindowController.m in Sources */,
 				CE7BF35D183F998C00315887 /* PSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +475,7 @@
 				CE7BF379183F998C00315887 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE7BF37A183F998C00315887 /* Build configuration list for PBXNativeTarget "PixivStreamTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +484,7 @@
 				CE7BF37C183F998C00315887 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
