@@ -8,5 +8,17 @@
 
 #import "PSApplicationUtility.h"
 
+NSString * const kPSApplicationName = @"PixivStream";
+
 NSString * const kPSUserDefaultsRefreshIntervalKey = @"refreshInterval";
 NSString * const kPSUserDefaultsMaxDisplayCountKey = @"displayCount";
+
+NSURL * PSApplicationSupportDirectory()
+{
+    NSArray *urls = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+    if ( [urls count] > 0 ) {
+        return [[urls firstObject] URLByAppendingPathComponent:kPSApplicationName];
+    } else {
+        return nil;
+    }
+}

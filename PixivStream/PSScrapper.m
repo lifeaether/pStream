@@ -7,6 +7,7 @@
 //
 
 #import "PSScrapper.h"
+#import "PSApplicationUtility.h"
 
 @interface PSScrapper ()
 
@@ -57,17 +58,11 @@
 }
 */
 static NSString * const kScrapperInfoURLString = @"http://dev.lifeaether.com/api/pixivstream/1.0/scrapper.plist";
-static NSString * const kApplicationSupportDirectoryName = @"PixivStream";
 static NSString * const kApplicationSupportScrapperInfoFileName = @"scrapper.plist";
 
 - (NSURL *)scrapperInfoFileURL
 {
-    NSArray *urls = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-    if ( [urls count] > 0 ) {
-        return [[urls firstObject] URLByAppendingPathComponent:kApplicationSupportScrapperInfoFileName];
-    } else {
-        return nil;
-    }
+    return [PSApplicationSupportDirectory() URLByAppendingPathComponent:kApplicationSupportScrapperInfoFileName];
 }
 
 - (void)updateScrapper:(void (^)(BOOL isSuccessful, NSError *error))completeHandler
@@ -77,7 +72,7 @@ static NSString * const kApplicationSupportScrapperInfoFileName = @"scrapper.pli
          if ( location ) {
              NSFileManager *fileManager = [NSFileManager defaultManager];
              NSURL *dstURL = [self scrapperInfoFileURL];
-             if ( [fileManager fileExistsAtPath:[dstURL absoluteString]] ) {
+             if ( [fileManager fileExistsAtPath:[dstURL path]] ) {
                  if ( ! [fileManager removeItemAtURL:dstURL error:&error] ) {
                      completeHandler( NO, error );
                      return;

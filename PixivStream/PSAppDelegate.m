@@ -16,10 +16,25 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // create application support directory
+    {
+        NSURL *url = PSApplicationSupportDirectory();
+        NSFileManager *manager = [NSFileManager defaultManager];
+        if ( ! [manager fileExistsAtPath:[url path]] ) {
+            NSError *error = nil;
+            if ( ! [manager createDirectoryAtURL:url withIntermediateDirectories:NO attributes:nil error:&error] ) {
+                NSAlert *alert = [NSAlert alertWithError:error];
+                [alert runModal];
+            }
+        }
+    }
+    
     // Add oberserver to User Defaults
-    NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
-    [defautls addObserver:self forKeyPath:kPSUserDefaultsRefreshIntervalKey options:NSKeyValueObservingOptionNew context:NULL];
-    [defautls addObserver:self forKeyPath:kPSUserDefaultsMaxDisplayCountKey options:NSKeyValueObservingOptionNew context:NULL];
+    {
+        NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
+        [defautls addObserver:self forKeyPath:kPSUserDefaultsRefreshIntervalKey options:NSKeyValueObservingOptionNew context:NULL];
+        [defautls addObserver:self forKeyPath:kPSUserDefaultsMaxDisplayCountKey options:NSKeyValueObservingOptionNew context:NULL];
+    }
     
     // validation user defaults values.
 
@@ -31,10 +46,13 @@
     }];
 
     // Begin scheduler
-    PSTaskScheduler *scheduler = [self refreshTaskScheduler];
-    [scheduler setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
-    [scheduler executeTask];
-    [scheduler beginTask];
+    {
+        NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
+        PSTaskScheduler *scheduler = [self refreshTaskScheduler];
+        [scheduler setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
+        [scheduler executeTask];
+        [scheduler beginTask];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
