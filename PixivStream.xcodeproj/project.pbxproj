@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE5D5D41183FA3D900C8D309 /* PSApplicationKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */; };
+		CE5D5D41183FA3D900C8D309 /* PSApplicationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D40183FA3D900C8D309 /* PSApplicationUtility.m */; };
 		CE5D5D44183FABAB00C8D309 /* PSTaskScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */; };
 		CE5D5D47183FB36200C8D309 /* PSWebRequestMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D46183FB36200C8D309 /* PSWebRequestMaker.m */; };
 		CE5D5D4A184054EB00C8D309 /* PSScrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5D5D49184054EB00C8D309 /* PSScrapper.m */; };
@@ -37,8 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CE5D5D3F183FA3D900C8D309 /* PSApplicationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSApplicationKey.h; sourceTree = "<group>"; };
-		CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSApplicationKey.m; sourceTree = "<group>"; };
+		CE5D5D3F183FA3D900C8D309 /* PSApplicationUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSApplicationUtility.h; sourceTree = "<group>"; };
+		CE5D5D40183FA3D900C8D309 /* PSApplicationUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSApplicationUtility.m; sourceTree = "<group>"; };
 		CE5D5D42183FABAB00C8D309 /* PSTaskScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSTaskScheduler.h; path = ../PSTaskScheduler.h; sourceTree = "<group>"; };
 		CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSTaskScheduler.m; path = ../PSTaskScheduler.m; sourceTree = "<group>"; };
 		CE5D5D45183FB36200C8D309 /* PSWebRequestMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebRequestMaker.h; sourceTree = "<group>"; };
@@ -136,8 +136,8 @@
 				CE7BF35C183F998C00315887 /* PSAppDelegate.m */,
 				CEC96416183FA1330044E5FE /* PSPreferenceWindowController.h */,
 				CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */,
-				CE5D5D3F183FA3D900C8D309 /* PSApplicationKey.h */,
-				CE5D5D40183FA3D900C8D309 /* PSApplicationKey.m */,
+				CE5D5D3F183FA3D900C8D309 /* PSApplicationUtility.h */,
+				CE5D5D40183FA3D900C8D309 /* PSApplicationUtility.m */,
 				CE5D5D42183FABAB00C8D309 /* PSTaskScheduler.h */,
 				CE5D5D43183FABAB00C8D309 /* PSTaskScheduler.m */,
 				CE5D5D45183FB36200C8D309 /* PSWebRequestMaker.h */,
@@ -286,7 +286,7 @@
 				CE7BF356183F998C00315887 /* main.m in Sources */,
 				CE5D5D4A184054EB00C8D309 /* PSScrapper.m in Sources */,
 				CE5D5D44183FABAB00C8D309 /* PSTaskScheduler.m in Sources */,
-				CE5D5D41183FA3D900C8D309 /* PSApplicationKey.m in Sources */,
+				CE5D5D41183FA3D900C8D309 /* PSApplicationUtility.m in Sources */,
 				CEC96418183FA1330044E5FE /* PSPreferenceWindowController.m in Sources */,
 				CE7BF35D183F998C00315887 /* PSAppDelegate.m in Sources */,
 			);

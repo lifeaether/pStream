@@ -7,7 +7,7 @@
 //
 
 #import "PSAppDelegate.h"
-#import "PSApplicationKey.h"
+#import "PSApplicationUtility.h"
 #import "PSTaskScheduler.h"
 #import "PSWebRequestMaker.h"
 #import "PSScrapper.h"
