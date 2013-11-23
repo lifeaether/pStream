@@ -50,7 +50,7 @@
 - (void)executeTask
 {
     NSMutableArray *taskQueue = [self taskQueue];
-    if ( taskQueue ) {
+    if ( [taskQueue count] > 0 ) {
         PSTaskBlock task = [taskQueue firstObject];
         task(); // execute on detach thread.
         [taskQueue removeObjectAtIndex:0];

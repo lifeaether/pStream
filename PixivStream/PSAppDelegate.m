@@ -10,6 +10,7 @@
 #import "PSApplicationKey.h"
 #import "PSTaskScheduler.h"
 #import "PSWebRequestMaker.h"
+#import "PSScrapper.h"
 
 @implementation PSAppDelegate
 
@@ -21,20 +22,16 @@
     [defautls addObserver:self forKeyPath:kPSUserDefaultsMaxDisplayCountKey options:NSKeyValueObservingOptionNew context:NULL];
     
     // validation user defaults values.
-    
-    PSTaskScheduler *scheduler = [self refreshTaskScheduler];
 
-    // push task.
-    [scheduler addTask:MakeNewStreamRequest( 0, ^(NSData *data, NSError *error) {
-        if ( data ) {
-            NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog( @"%@", html );
-        } else {
+    // update scrapper
+    [[PSScrapper sharedScrapper] updateScrapper:^( BOOL isSuccess, NSError *error ) {
+        if ( ! isSuccess ) {
             NSLog( @"%@", error );
         }
-    })];
-    
+    }];
+
     // Begin scheduler
+    PSTaskScheduler *scheduler = [self refreshTaskScheduler];
     [scheduler setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
     [scheduler executeTask];
     [scheduler beginTask];

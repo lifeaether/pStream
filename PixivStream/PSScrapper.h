@@ -24,7 +24,7 @@ typedef BOOL (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError
 
 @interface PSScrapper : NSObject
 
-+ (id)sharedScrapper;
++ (instancetype)sharedScrapper;
 
 - (NSURL *)newURLAtIndex:(NSInteger)index;
 - (NSURL *)searchURLWithKeyword:(NSArray *)keywords atIndex:(NSInteger)index;
@@ -36,6 +36,8 @@ typedef BOOL (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError
 - (PSTaskBlock)scrapPageWithIdentifier:(NSString *)identifier handler:(PSScrapPageHandler)handler;
 - (PSTaskBlock)scrapImageWithIdentifier:(NSString *)identifier handler:(PSScrapImageHandler)handler;
 
+- (NSURL *)scrapperInfoFileURL;
 - (void)updateScrapper:(void (^)(BOOL isSuccessful, NSError *error))completeHandler;
+- (id)loadObjectValueForKeyPath:(NSString *)keyPath;
 
 @end
