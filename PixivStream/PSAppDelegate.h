@@ -8,8 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PSTaskScheduler;
+
 @interface PSAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet PSTaskScheduler *refreshTaskScheduler;
+@property (weak) IBOutlet PSTaskScheduler *streamTaskScheduler;
 
 @end

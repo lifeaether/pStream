@@ -17,7 +17,16 @@
 
 @implementation PSTaskScheduler
 
-- (void)addTask:(void (^)(void))taskBlock
+- (instancetype)init
+{
+    self = [super init];
+    if ( self ) {
+        [self setTaskQueue:[NSMutableArray array]];
+    }
+    return self;
+}
+
+- (void)addTask:(PSTaskBlock)taskBlock
 {
     [[self taskQueue] addObject:taskBlock];
 }
@@ -33,14 +42,31 @@
     [self setTimer:nil];
 }
 
-- (void)timerFire:(NSTimer *)timer
+- (BOOL)isBegining
+{
+    return [self timer] != nil;
+}
+
+- (void)executeTask
 {
     NSMutableArray *taskQueue = [self taskQueue];
     if ( taskQueue ) {
-        void (^task)(void) = [taskQueue firstObject];
-        task();
+        PSTaskBlock task = [taskQueue firstObject];
+        task(); // execute on detach thread.
         [taskQueue removeObjectAtIndex:0];
     }
+}
+
+- (void)timerFire:(NSTimer *)timer
+{
+    [self executeTask];
+}
+
+- (void)setInterval:(NSTimeInterval)interval
+{
+    [self endTask];
+    _interval = interval;
+    [self beginTask];
 }
 
 @end

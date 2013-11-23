@@ -8,14 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^PSTaskBlock)(void);
+
 @interface PSTaskScheduler : NSObject
 
-@property NSTimeInterval interval;
+@property (nonatomic) NSTimeInterval interval;
 
-- (void)addTask:(void (^)(void))taskBlock;
+- (void)addTask:(PSTaskBlock)taskBlock;
 
 - (void)beginTask;
 - (void)endTask;
+- (BOOL)isBegining;
 
+- (void)executeTask;
 
 @end
