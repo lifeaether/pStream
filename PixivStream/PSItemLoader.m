@@ -58,13 +58,14 @@
 
 - (void)load
 {
-    PSTaskBlock block = [[PSScrapper sharedScrapper] scrapNewToIdentifier:[self lastIdentifier] count:[self maximumItemCount] handler:^( NSArray *items, NSError *error ) {
-        for ( id item in items ) {
-            [self pushItem:item];
-            NSLog( @"%@", item );
-        }
-    }];
-    block();
+    NSArray *items = [[PSScrapper sharedScrapper] scrapNewToIdentifier:[self lastIdentifier] count:[self maximumItemCount]];
+    for ( id item in items ) {
+        NSLog( @"%@ %@", [item valueForKey:kPSScrapperItemIdentifierKey], [item valueForKey:kPSScrapperItemTitleKey] );
+        [self pushItem:item];
+    }
+    if ( [items count] > 0 ) {
+        [self setLastIdentifier:[[items firstObject] valueForKey:kPSScrapperItemIdentifierKey]];
+    }
 }
 
 - (void)timerFire:(NSTimer *)timer
