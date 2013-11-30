@@ -121,6 +121,7 @@ static NSString * identifierFromLink( NSString *linkURLString )
     for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[self newURLAtIndex:i]];
         NSURLResponse *response = nil;
+        NSLog( @"%@", request );
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         if ( ! data ) break;
         
@@ -163,6 +164,7 @@ static NSString * identifierFromLink( NSString *linkURLString )
     for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[self searchURLWithKeyword:keywords atIndex:i]];
         NSURLResponse *response = nil;
+        NSLog( @"%@", request );
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         if ( ! data ) break;
         
@@ -231,6 +233,7 @@ static NSString * authorIdentifierFromURLString( NSString *urlString )
     NSURLRequest *request = [NSURLRequest requestWithURL:[self pageURLWithIndentifier:identifier]];
     NSURLResponse *response = nil;
     NSError *error = nil;
+    NSLog( @"%@", request );
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];

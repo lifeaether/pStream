@@ -26,7 +26,7 @@
 			<key>author-name</key>
 			<string>//h1[@class=&apos;user&apos;]</string>
 			<key>date</key>
-			<string>//url[@class=&apos;meta&apos;]/li[1]</string>
+			<string>//ul[@class=&apos;meta&apos;]/li[1]</string>
 			<key>view</key>
 			<string>//dd[@class=&apos;view-count&apos;]</string>
 			<key>vote</key>

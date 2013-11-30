@@ -60,7 +60,6 @@
 {
     NSArray *items = [[PSScrapper sharedScrapper] scrapNewToIdentifier:[self lastIdentifier] count:[self maximumItemCount]];
     for ( id item in items ) {
-        NSLog( @"%@ %@", [item valueForKey:kPSScrapperItemIdentifierKey], [item valueForKey:kPSScrapperItemTitleKey] );
         [self pushItem:item];
     }
     if ( [items count] > 0 ) {
@@ -83,7 +82,7 @@
 - (void)pushItem:(NSDictionary *)item
 {
     @synchronized ( self ) {
-        [[self items] addObject:item];
+        [[self items] insertObject:item atIndex:0];
     }
 }
 
@@ -91,8 +90,8 @@
 {
     @synchronized ( self ) {
         if ( [self numberOfItem] > 0 ) {
-            NSDictionary *item = [[self items] lastObject];
-            [[self items] removeLastObject];
+            NSDictionary *item = [[self items] firstObject];
+            [[self items] removeObjectAtIndex:0];
             return item;
         } else {
             return nil;

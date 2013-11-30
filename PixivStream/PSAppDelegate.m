@@ -8,9 +8,8 @@
 
 #import "PSAppDelegate.h"
 #import "PSApplicationUtility.h"
-#import "PSTaskScheduler.h"
 #import "PSScrapper.h"
-#import "PSItemLoader.h"
+#import "PSStream.h"
 
 @implementation PSAppDelegate
 
@@ -45,18 +44,44 @@
         }
     }];*/
 
-    // Begin global task scheduler
+    [[self stream] setReceiveItemHandler:^( NSDictionary *item ) {
+        NSLog( @"%@", [item valueForKey:kPSScrapperItemDateKey] );
+        NSLog( @"%@ %@", [item valueForKey:kPSScrapperItemIdentifierKey], [item valueForKey:kPSScrapperItemTitleKey] );
+        id content = [[self itemController] content];
+        [content setValue:[item valueForKey:kPSScrapperItemTitleKey] forKey:@"title"];
+        [content setValue:[item valueForKey:kPSScrapperItemAuthorKey] forKey:@"author"];
+        [content setValue:[item valueForKey:kPSScrapperItemDateKey] forKey:@"date"];
+        [content setValue:[item valueForKey:kPSScrapperItemCaptionKey] forKey:@"caption"];
+        
+        {
+            NSString *tagString = @"";
+            for ( NSString *tag in [item valueForKey:kPSScrapperItemTagsKey] ) {
+                tagString = [tagString stringByAppendingFormat:@"%@ ", tag];
+            }
+            [content setValue:tagString forKey:@"tags"];
+        }
+        
+        {
+            NSURL *url = [NSURL URLWithString:[item valueForKey:kPSScrapperItemSmallImageKey]];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+            [request setValue:[[[PSScrapper sharedScrapper] pageURLWithIndentifier:[item valueForKey:kPSScrapperItemIdentifierKey]] absoluteString] forHTTPHeaderField:@"Referer"];
+            NSURLResponse *response = nil;
+            NSError *error = nil;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            NSImage *image = [[NSImage alloc] initWithData:data];
+            [content setValue:image forKey:@"image"];
+        }
+    }];
     
-    //test
-    {
-        [[self itemLoader] setInterval:10];
-        [[self itemLoader] setMaximumItemCount:200];
-        [[self itemLoader] start];
-    }
+    [[self stream] setMaximumCount:99];
+    [[self stream] setInterval:60*3];
+    [[self stream] start];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
+    [[self stream] stop];
+    
     // Remove observers.
     NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
     [defautls removeObserver:self forKeyPath:kPSUserDefaultsRefreshIntervalKey];
@@ -70,5 +95,6 @@
     } else if ( [keyPath isEqualToString:kPSUserDefaultsMaxDisplayCountKey] ) {
     }
 }
+
 
 @end

@@ -8,11 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PSItemLoader;
+@class PSStream;
 
 @interface PSAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet PSItemLoader *itemLoader;
+@property (weak) IBOutlet PSStream *stream;
+@property (weak) IBOutlet NSObjectController *itemController;
 
 @end
