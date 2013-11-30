@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>encodings</key>
+	<string>utf-8</string>
+	<key>url</key>
+	<dict>
+		<key>new</key>
+		<string>http://www.pixiv.net/new_illust.php?p=%d</string>
+		<key>search</key>
+		<string>http://www.pixiv.net/search.php?s_mode=s_tag&amp;word=%@&amp;p=%d</string>
+		<key>page</key>
+		<string>http://www.pixiv.net/member_illust.php?mode=medium&amp;illust_id=%@</string>
+	</dict>
+	<key>xpath</key>
+	<dict>
+		<key>new</key>
+		<dict>
+			<key>item</key>
+			<string>//li[@class=&apos;image-item&apos;]</string>
+			<key>identifier</key>
+			<string>./a[1]/@href</string>
+			<key>title</key>
+			<string>.//h1</string>
+			<key>author</key>
+			<string>./a[2]</string>
+			<key>thumbnail</key>
+			<string>./a[1]/img/@src</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

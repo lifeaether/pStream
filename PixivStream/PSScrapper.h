@@ -9,7 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "PSTaskScheduler.h"
 
+extern NSString * const kPSScrapperEncodingKey;
+extern NSString * const kPSScrapperURLNewURLStringKey;
+extern NSString * const kPSScrapperURLSearchURLStringKey;
+extern NSString * const kPSScrapperURLPageURLStringKey;
+extern NSString * const kPSScrapperNewItemXPathKey;
+extern NSString * const kPSScrapperNewItemIdentifierXPathKey;
+extern NSString * const kPSScrapperNewItemTitleXPathKey;
+extern NSString * const kPSScrapperNewItemAuthorXPathKey;
+extern NSString * const kPSScrapperNewItemThumbnailXPathKey;
 extern NSString * const kPSScrapperItemIdentifierKey;
+extern NSString * const kPSScrapperItemTitleKey;
 extern NSString * const kPSScrapperItemDateKey;
 extern NSString * const kPSScrapperItemTagsKey;
 extern NSString * const kPSScrapperItemCaptionKey;
@@ -19,7 +29,7 @@ extern NSString * const kPSScrapperItemMediumImageKey;
 extern NSString * const kPSScrapperItemBigImageKey;
 extern NSString * const kPSScrapperItemMangaImageKey;
 
-typedef BOOL (^PSScrapPageHandler)( NSDictionary *item, NSError *error );
+typedef BOOL (^PSScrapPageHandler)( NSDictionary *items, NSError *error );
 typedef BOOL (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError *error );
 
 @interface PSScrapper : NSObject
@@ -27,9 +37,8 @@ typedef BOOL (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError
 + (instancetype)sharedScrapper;
 
 - (NSURL *)newURLAtIndex:(NSInteger)index;
-- (NSURL *)searchURLWithKeyword:(NSArray *)keywords atIndex:(NSInteger)index;
-- (NSURL *)illustPageURLWithIndentifier:(NSString *)identifier;
-- (NSURL *)illustImageURLWithIndetifier:(NSString *)identifier;
+- (NSURL *)searchURLWithKeyword:(NSString *)keyword atIndex:(NSInteger)index;
+- (NSURL *)pageURLWithIndentifier:(NSString *)identifier;
 
 - (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapPageHandler)handler;
 - (PSTaskBlock)scrapSearchWithKeyword:(NSArray *)keywords ofRange:(NSRange)range handler:(PSScrapPageHandler)handler;

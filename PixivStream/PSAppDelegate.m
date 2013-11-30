@@ -9,7 +9,6 @@
 #import "PSAppDelegate.h"
 #import "PSApplicationUtility.h"
 #import "PSTaskScheduler.h"
-#import "PSWebRequestMaker.h"
 #import "PSScrapper.h"
 
 @implementation PSAppDelegate
@@ -39,19 +38,29 @@
     // validation user defaults values.
 
     // update scrapper
-    [[PSScrapper sharedScrapper] updateScrapper:^( BOOL isSuccess, NSError *error ) {
+/*    [[PSScrapper sharedScrapper] updateScrapper:^( BOOL isSuccess, NSError *error ) {
         if ( ! isSuccess ) {
             NSLog( @"%@", error );
         }
-    }];
+    }];*/
 
     // Begin scheduler
-    {
+/*    {
         NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
         PSTaskScheduler *scheduler = [self refreshTaskScheduler];
         [scheduler setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
         [scheduler executeTask];
         [scheduler beginTask];
+    }*/
+    
+    //test
+    {
+        PSTaskBlock block = [[PSScrapper sharedScrapper] scrapNewOfRange:NSMakeRange(0, 1) handler:^( NSDictionary *item, NSError *error ) {
+            NSLog( @"%@", item );
+            return YES;
+        }];
+        
+        block();
     }
 }
 
