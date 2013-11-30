@@ -13,7 +13,6 @@
 @interface PSAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet PSTaskScheduler *refreshTaskScheduler;
-@property (weak) IBOutlet PSTaskScheduler *streamTaskScheduler;
+@property (weak) IBOutlet PSTaskScheduler *globalRequestScheduler;
 
 @end

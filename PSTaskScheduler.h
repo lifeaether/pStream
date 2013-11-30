@@ -16,9 +16,9 @@ typedef void (^PSTaskBlock)(void);
 
 - (void)addTask:(PSTaskBlock)taskBlock;
 
-- (void)beginTask;
-- (void)endTask;
-- (BOOL)isBegining;
+- (void)start;
+- (void)stop;
+- (BOOL)isStarted;
 
 - (void)executeTask;
 

@@ -44,14 +44,13 @@
         }
     }];*/
 
-    // Begin scheduler
-/*    {
-        NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
-        PSTaskScheduler *scheduler = [self refreshTaskScheduler];
-        [scheduler setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
+    // Begin global task scheduler
+    {
+        PSTaskScheduler *scheduler = [self globalRequestScheduler];
+        [scheduler setInterval:1.0];
         [scheduler executeTask];
         [scheduler beginTask];
-    }*/
+    }
     
     //test
     {
@@ -77,17 +76,12 @@
     NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
     [defautls removeObserver:self forKeyPath:kPSUserDefaultsRefreshIntervalKey];
     [defautls removeObserver:self forKeyPath:kPSUserDefaultsMaxDisplayCountKey];
-    
-    // end task.
-    [[self streamTaskScheduler] endTask];
-    [[self refreshTaskScheduler] endTask];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     NSUserDefaults *defautls = [NSUserDefaults standardUserDefaults];
     if ( [keyPath isEqualToString:kPSUserDefaultsRefreshIntervalKey] ) {
-        [[self refreshTaskScheduler] setInterval:[[defautls valueForKey:kPSUserDefaultsRefreshIntervalKey] floatValue]];
     } else if ( [keyPath isEqualToString:kPSUserDefaultsMaxDisplayCountKey] ) {
     }
 }

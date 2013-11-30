@@ -707,8 +707,7 @@
         </window>
         <customObject id="494" customClass="PSAppDelegate">
             <connections>
-                <outlet property="refreshTaskScheduler" destination="2FZ-Eg-7Sy" id="9V3-mq-Zgp"/>
-                <outlet property="streamTaskScheduler" destination="XgF-Xl-HTO" id="EzO-7c-VVh"/>
+                <outlet property="globalRequestScheduler" destination="E4T-8k-Slm" id="6Z1-hI-Wh4"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
@@ -723,7 +722,6 @@
             <autoresizingMask key="autoresizingMask"/>
         </view>
         <customObject id="57e-1l-nEO" userLabel="Preferences Window Controller" customClass="PSPreferenceWindowController"/>
-        <customObject id="2FZ-Eg-7Sy" userLabel="Refresh Task Scheduler" customClass="PSTaskScheduler"/>
-        <customObject id="XgF-Xl-HTO" userLabel="Stream Task Scheduler" customClass="PSTaskScheduler"/>
+        <customObject id="E4T-8k-Slm" userLabel="globalTaskScheduler" customClass="PSTaskScheduler"/>
     </objects>
 </document>

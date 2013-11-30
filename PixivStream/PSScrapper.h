@@ -8,25 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PSTaskScheduler.h"
-/*
-extern NSString * const kPSScrapperEncodingKey;
 
-extern NSString * const kPSScrapperURLNewURLStringKey;
-extern NSString * const kPSScrapperURLSearchURLStringKey;
-extern NSString * const kPSScrapperURLPageURLStringKey;
 
-extern NSString * const kPSScrapperNewItemXPathKey;
-extern NSString * const kPSScrapperNewItemIdentifierXPathKey;
-extern NSString * const kPSScrapperNewItemTitleXPathKey;
-extern NSString * const kPSScrapperNewItemAuthorXPathKey;
-extern NSString * const kPSScrapperNewItemThumbnailXPathKey;
-
-extern NSString * const kPSScrapperSearchItemXPathKey;
-extern NSString * const kPSScrapperSearchItemIdentifierXPathKey;
-extern NSString * const kPSScrapperSearchItemTitleXPathKey;
-extern NSString * const kPSScrapperSearchItemAuthorXPathKey;
-extern NSString * const kPSScrapperSearchItemThumbnailXPathKey;
-*/
 extern NSString * const kPSScrapperItemIdentifierKey;
 extern NSString * const kPSScrapperItemTitleKey;
 extern NSString * const kPSScrapperItemDateKey;
@@ -42,8 +25,10 @@ extern NSString * const kPSScrapperItemMediumImageKey;
 extern NSString * const kPSScrapperItemBigImageKey;
 extern NSString * const kPSScrapperItemMangaImageKey;
 
-typedef BOOL (^PSScrapPageHandler)( NSDictionary *item, NSError *error );
-typedef BOOL (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError *error );
+typedef void (^PSScrapNewHandler)( NSArray *items, NSError *error );
+typedef void (^PSScrapSearchHandler)( NSArray *items, NSError *error );
+typedef void (^PSScrapPageHandler)( NSDictionary *item, NSError *error );
+typedef void (^PSScrapImageHandler)( NSImage *image, NSDictionary *item, NSError *error );
 
 typedef NS_ENUM( NSInteger, PSScrapResult ) {
     PSScrapResultOK,
@@ -59,8 +44,8 @@ typedef NS_ENUM( NSInteger, PSScrapResult ) {
 - (NSURL *)searchURLWithKeyword:(NSString *)keyword atIndex:(NSInteger)index;
 - (NSURL *)pageURLWithIndentifier:(NSString *)identifier;
 
-- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapPageHandler)handler;
-- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapPageHandler)handler;
+- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapNewHandler)handler;
+- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapSearchHandler)handler;
 - (PSTaskBlock)scrapPageWithIdentifier:(NSString *)identifier handler:(PSScrapPageHandler)handler;
 - (PSTaskBlock)scrapImageWithIdentifier:(NSString *)identifier handler:(PSScrapImageHandler)handler;
 

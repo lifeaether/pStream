@@ -112,9 +112,10 @@ static NSString * identifierFromLink( NSString *linkURLString )
     return nil;
 }
 
-- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapPageHandler)handler
+- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapNewHandler)handler
 {
     return ^{
+        NSMutableArray *items = [NSMutableArray array];
         for ( NSInteger i = range.location; i < NSMaxRange( range ); i++ ) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[self newURLAtIndex:i]];
             NSURLResponse *response = nil;
@@ -137,19 +138,19 @@ static NSString * identifierFromLink( NSString *linkURLString )
                         [item setValue:author forKey:kPSScrapperItemAuthorKey];
                         [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
                         [item setValue:identifierFromLink(link) forKey:kPSScrapperItemIdentifierKey];
-                        if ( ! handler( item, error ) ) {
-                            return;
-                        }
+                        [items addObject:item];
                     }
                 }
             }
         }
+        handler( items, nil );
     };
 }
 
-- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapPageHandler)handler
+- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapSearchHandler)handler
 {
     return ^{
+        NSMutableArray *items = [NSMutableArray array];
         for ( NSInteger i = range.location; i < NSMaxRange( range ); i++ ) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[self searchURLWithKeyword:keywords atIndex:i]];
             NSURLResponse *response = nil;
@@ -172,13 +173,12 @@ static NSString * identifierFromLink( NSString *linkURLString )
                         [item setValue:author forKey:kPSScrapperItemAuthorKey];
                         [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
                         [item setValue:identifierFromLink(link) forKey:kPSScrapperItemIdentifierKey];
-                        if ( ! handler( item, error ) ) {
-                            return;
-                        }
+                        [items addObject:item];
                     }
                 }
             }
         }
+        handler( items, nil );
     };
 }
 
@@ -245,9 +245,7 @@ static NSString * authorIdentifierFromURLString( NSString *urlString )
             [item setValue:image forKey:kPSScrapperItemMediumImageKey];
             [item setValue:tags forKey:kPSScrapperItemTagsKey];
             
-            if ( ! handler( item, error ) ) {
-                return;
-            }
+            handler( item, error );
         }
     };
 }

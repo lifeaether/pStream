@@ -31,18 +31,20 @@
     [[self taskQueue] addObject:taskBlock];
 }
 
-- (void)beginTask
+- (void)start
 {
-    [self setTimer:[NSTimer timerWithTimeInterval:[self interval] target:self selector:@selector(timerFire:) userInfo:NULL repeats:YES]];
+    if ( [self isStarted] ) {
+        [self setTimer:[NSTimer timerWithTimeInterval:[self interval] target:self selector:@selector(timerFire:) userInfo:NULL repeats:YES]];
+    }
 }
 
-- (void)endTask
+- (void)stop
 {
     [[self timer] invalidate];
     [self setTimer:nil];
 }
 
-- (BOOL)isBegining
+- (BOOL)isStarted
 {
     return [self timer] != nil;
 }
@@ -64,9 +66,9 @@
 
 - (void)setInterval:(NSTimeInterval)interval
 {
-    [self endTask];
+    [self stop];
     _interval = interval;
-    [self beginTask];
+    [self start];
 }
 
 @end
