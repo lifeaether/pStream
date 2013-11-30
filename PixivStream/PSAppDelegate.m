@@ -55,8 +55,15 @@
     
     //test
     {
-        PSTaskBlock block = [[PSScrapper sharedScrapper] scrapNewOfRange:NSMakeRange(0, 1) handler:^( NSDictionary *item, NSError *error ) {
+        PSTaskBlock block = [[PSScrapper sharedScrapper] scrapPageWithIdentifier:@"39980362" handler:^( NSDictionary *item, NSError *error ) {
             NSLog( @"%@", item );
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[item valueForKey:kPSScrapperItemMediumImageKey]]];
+//            [request setValue:[[[PSScrapper sharedScrapper] pageURLWithIndentifier:[item valueForKey:kPSScrapperItemIdentifierKey]] absoluteString] forHTTPHeaderField:@"User-Agent"];
+            [request setValue:@"http://www.pixiv.net/member_illust.php?mode=medium&illust_id=39980362" forHTTPHeaderField:@"Referer"];
+            NSURLResponse *response = nil;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSImage *image = [[NSImage alloc] initWithData:data];
             return YES;
         }];
         

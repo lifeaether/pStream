@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>encodings</key>
-	<string>utf-8</string>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>update</key>
+	<date>2013-11-30T07:47:16Z</date>
 	<key>url</key>
 	<dict>
 		<key>new</key>
@@ -15,7 +17,45 @@
 	</dict>
 	<key>xpath</key>
 	<dict>
+		<key>page</key>
+		<dict>
+			<key>author-identifier</key>
+			<string>//a[@class=&apos;user-link&apos;]/@href</string>
+			<key>author-image</key>
+			<string>//img[@class=&apos;user-image&apos;]/@src</string>
+			<key>author-name</key>
+			<string>//h1[@class=&apos;user&apos;]</string>
+			<key>date</key>
+			<string>//url[@class=&apos;meta&apos;]/li[1]</string>
+			<key>view</key>
+			<string>//dd[@class=&apos;view-count&apos;]</string>
+			<key>vote</key>
+			<string>//dd[@class=&apos;rated-count&apos;]</string>
+			<key>point</key>
+			<string>//dd[@class=&apos;score-count&apos;]</string>
+			<key>title</key>
+			<string>//div[@class=&apos;ui-expander-target&apos;]/h1[@class=&apos;title&apos;]</string>
+			<key>caption</key>
+			<string>//div[@class=&apos;ui-expander-target&apos;]/p[@class=&apos;caption&apos;]</string>
+			<key>tags</key>
+			<string>//li[@class=&apos;tag&apos;]/a[2]</string>
+			<key>image</key>
+			<string>//div[@class=&apos;works_display&apos;]/a/img/@src</string>
+		</dict>
 		<key>new</key>
+		<dict>
+			<key>item</key>
+			<string>//li[@class=&apos;image-item&apos;]</string>
+			<key>identifier</key>
+			<string>./a[1]/@href</string>
+			<key>title</key>
+			<string>.//h1</string>
+			<key>author</key>
+			<string>./a[2]</string>
+			<key>thumbnail</key>
+			<string>./a[1]/img/@src</string>
+		</dict>
+		<key>search</key>
 		<dict>
 			<key>item</key>
 			<string>//li[@class=&apos;image-item&apos;]</string>
