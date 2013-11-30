@@ -54,6 +54,8 @@ NSString * const kPSScrapperItemMediumImageKey      = @"kPSScrapperItemMediumIma
 NSString * const kPSScrapperItemBigImageKey         = @"kPSScrapperItemBigImageKey";
 NSString * const kPSScrapperItemMangaImageKey       = @"kPSScrapperItemMangaImageKey";
 
+static const NSInteger kPSScrapperMaxPage = 100;
+
 @interface PSScrapper ()
 
 @property (nonatomic) NSDictionary *scrapperInfo;
@@ -112,75 +114,93 @@ static NSString * identifierFromLink( NSString *linkURLString )
     return nil;
 }
 
-- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapNewHandler)handler
+- (PSTaskBlock)scrapNewToIdentifier:(NSString *)toIdentifier count:(NSInteger)itemCount handler:(PSScrapNewHandler)handler
 {
     return ^{
         NSMutableArray *items = [NSMutableArray array];
-        for ( NSInteger i = range.location; i < NSMaxRange( range ); i++ ) {
+        NSError *error = nil;
+        for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[self newURLAtIndex:i]];
             NSURLResponse *response = nil;
-            NSError *error = nil;
             NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            if ( ! data ) break;
+            
             NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            if ( htmlString ) {
-                NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];
-                if ( [self validateDocument:document] == PSScrapResultOK ) {
-                    NSString *xpathForItem = [self loadObjectValueForKeyPath:kPSScrapperSearchItemXPathKey];
-                    NSError *error = nil;
-                    NSArray *itemNodes = [document nodesForXPath:xpathForItem error:&error];
-                    for ( id itemNode in itemNodes ) {
-                        NSDictionary *item = [NSMutableDictionary dictionary];
-                        NSString *title = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemTitleXPathKey], nil );
-                        NSString *link = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemIdentifierXPathKey], nil );
-                        NSString *author = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemAuthorXPathKey], nil );
-                        NSString *thumbnailURL = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemThumbnailXPathKey], nil );
-                        [item setValue:title forKey:kPSScrapperItemTitleKey];
-                        [item setValue:author forKey:kPSScrapperItemAuthorKey];
-                        [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
-                        [item setValue:identifierFromLink(link) forKey:kPSScrapperItemIdentifierKey];
-                        [items addObject:item];
-                    }
+            if ( ! htmlString ) break;
+            
+            NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];
+            if ( [self validateDocument:document] != PSScrapResultOK ) break;
+            
+            NSString *xpathForItem = [self loadObjectValueForKeyPath:kPSScrapperNewItemXPathKey];
+            NSArray *itemNodes = [document nodesForXPath:xpathForItem error:&error];
+            if ( ! itemNodes ) break;
+            
+            for ( id itemNode in itemNodes ) {
+                NSDictionary *item = [NSMutableDictionary dictionary];
+                NSString *title = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemTitleXPathKey], nil );
+                NSString *link = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemIdentifierXPathKey], nil );
+                NSString *author = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemAuthorXPathKey], nil );
+                NSString *thumbnailURL = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemThumbnailXPathKey], nil );
+                NSString *identifier = identifierFromLink(link);
+                [item setValue:title forKey:kPSScrapperItemTitleKey];
+                [item setValue:author forKey:kPSScrapperItemAuthorKey];
+                [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
+                [item setValue:identifier forKey:kPSScrapperItemIdentifierKey];
+                
+                if ( [identifier intValue] < [toIdentifier intValue] || [items count] < itemCount ) {
+                    [items addObject:item];
+                } else {
+                    handler( items, nil );
+                    return;
                 }
             }
         }
-        handler( items, nil );
+        handler( items, error );
     };
 }
 
-- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapSearchHandler)handler
+- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords toIdentifier:(NSString *)toIdentifier count:(NSInteger)itemCount handler:(PSScrapSearchHandler)handler
 {
     return ^{
         NSMutableArray *items = [NSMutableArray array];
-        for ( NSInteger i = range.location; i < NSMaxRange( range ); i++ ) {
+        NSError *error = nil;
+        for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[self searchURLWithKeyword:keywords atIndex:i]];
             NSURLResponse *response = nil;
-            NSError *error = nil;
             NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            if ( ! data ) break;
+            
             NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            if ( htmlString ) {
-                NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];
-                if ( [self validateDocument:document] == PSScrapResultOK ) {
-                    NSString *xpathForItem = [self loadObjectValueForKeyPath:kPSScrapperNewItemXPathKey];
-                    NSError *error = nil;
-                    NSArray *itemNodes = [document nodesForXPath:xpathForItem error:&error];
-                    for ( id itemNode in itemNodes ) {
-                        NSString *title = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemTitleXPathKey], nil );
-                        NSString *link = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemIdentifierXPathKey], nil );
-                        NSString *author = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemAuthorXPathKey], nil );
-                        NSString *thumbnailURL = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperNewItemThumbnailXPathKey], nil );
-                        NSDictionary *item = [NSMutableDictionary dictionary];
-                        [item setValue:title forKey:kPSScrapperItemTitleKey];
-                        [item setValue:author forKey:kPSScrapperItemAuthorKey];
-                        [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
-                        [item setValue:identifierFromLink(link) forKey:kPSScrapperItemIdentifierKey];
-                        [items addObject:item];
-                    }
+            if ( ! htmlString ) break;
+            
+            NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];
+            if ( [self validateDocument:document] != PSScrapResultOK ) break;
+            
+            NSString *xpathForItem = [self loadObjectValueForKeyPath:kPSScrapperSearchItemXPathKey];
+            NSArray *itemNodes = [document nodesForXPath:xpathForItem error:&error];
+            if ( ! itemNodes ) break;
+            
+            for ( id itemNode in itemNodes ) {
+                NSDictionary *item = [NSMutableDictionary dictionary];
+                NSString *title = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemTitleXPathKey], nil );
+                NSString *link = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemIdentifierXPathKey], nil );
+                NSString *author = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemAuthorXPathKey], nil );
+                NSString *thumbnailURL = stringValueForXPath( itemNode, [self loadObjectValueForKeyPath:kPSScrapperSearchItemThumbnailXPathKey], nil );
+                NSString *identifier = identifierFromLink(link);
+                [item setValue:title forKey:kPSScrapperItemTitleKey];
+                [item setValue:author forKey:kPSScrapperItemAuthorKey];
+                [item setValue:thumbnailURL forKey:kPSScrapperItemSmallImageKey];
+                [item setValue:identifier forKey:kPSScrapperItemIdentifierKey];
+                
+                if ( [identifier intValue] < [toIdentifier intValue] || [items count] < itemCount ) {
+                    [items addObject:item];
+                } else {
+                    handler( items, nil );
                 }
             }
         }
-        handler( items, nil );
-    };
-}
+        handler( items, error );
+    };}
 
 static NSArray * tagsFromXMLNode( NSXMLNode *root, NSString *xpathForTags )
 {

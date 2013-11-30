@@ -10,6 +10,7 @@
 #import "PSApplicationUtility.h"
 #import "PSTaskScheduler.h"
 #import "PSScrapper.h"
+#import "PSItemLoader.h"
 
 @implementation PSAppDelegate
 
@@ -45,28 +46,12 @@
     }];*/
 
     // Begin global task scheduler
-    {
-        PSTaskScheduler *scheduler = [self globalRequestScheduler];
-        [scheduler setInterval:1.0];
-        [scheduler executeTask];
-        [scheduler beginTask];
-    }
     
     //test
     {
-        PSTaskBlock block = [[PSScrapper sharedScrapper] scrapPageWithIdentifier:@"39980362" handler:^( NSDictionary *item, NSError *error ) {
-            NSLog( @"%@", item );
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[item valueForKey:kPSScrapperItemMediumImageKey]]];
-//            [request setValue:[[[PSScrapper sharedScrapper] pageURLWithIndentifier:[item valueForKey:kPSScrapperItemIdentifierKey]] absoluteString] forHTTPHeaderField:@"User-Agent"];
-            [request setValue:@"http://www.pixiv.net/member_illust.php?mode=medium&illust_id=39980362" forHTTPHeaderField:@"Referer"];
-            NSURLResponse *response = nil;
-            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSImage *image = [[NSImage alloc] initWithData:data];
-            return YES;
-        }];
-        
-        block();
+        [[self itemLoader] setInterval:10];
+        [[self itemLoader] setMaximumItemCount:200];
+        [[self itemLoader] start];
     }
 }
 

@@ -44,8 +44,8 @@ typedef NS_ENUM( NSInteger, PSScrapResult ) {
 - (NSURL *)searchURLWithKeyword:(NSString *)keyword atIndex:(NSInteger)index;
 - (NSURL *)pageURLWithIndentifier:(NSString *)identifier;
 
-- (PSTaskBlock)scrapNewOfRange:(NSRange)range handler:(PSScrapNewHandler)handler;
-- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords ofRange:(NSRange)range handler:(PSScrapSearchHandler)handler;
+- (PSTaskBlock)scrapNewToIdentifier:(NSString *)identifier count:(NSInteger)itemCount handler:(PSScrapNewHandler)handler;
+- (PSTaskBlock)scrapSearchWithKeyword:(NSString *)keywords toIdentifier:(NSString *)toIdentifier count:(NSInteger)itemCount handler:(PSScrapSearchHandler)handler;
 - (PSTaskBlock)scrapPageWithIdentifier:(NSString *)identifier handler:(PSScrapPageHandler)handler;
 - (PSTaskBlock)scrapImageWithIdentifier:(NSString *)identifier handler:(PSScrapImageHandler)handler;
 

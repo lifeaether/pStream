@@ -20,7 +20,6 @@
 - (void)stop;
 
 - (void)load;
-- (void)loadAtPageIndex:(NSUInteger)pageIndex;
 
 - (NSUInteger)numberOfItem;
 - (void)pushItem:(NSDictionary *)item;

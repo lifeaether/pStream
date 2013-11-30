@@ -707,7 +707,7 @@
         </window>
         <customObject id="494" customClass="PSAppDelegate">
             <connections>
-                <outlet property="globalRequestScheduler" destination="E4T-8k-Slm" id="6Z1-hI-Wh4"/>
+                <outlet property="itemLoader" destination="ZzO-5m-gdo" id="YbY-CF-1nU"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
@@ -722,6 +722,6 @@
             <autoresizingMask key="autoresizingMask"/>
         </view>
         <customObject id="57e-1l-nEO" userLabel="Preferences Window Controller" customClass="PSPreferenceWindowController"/>
-        <customObject id="E4T-8k-Slm" userLabel="globalTaskScheduler" customClass="PSTaskScheduler"/>
+        <customObject id="ZzO-5m-gdo" userLabel="itemLoader" customClass="PSItemLoader"/>
     </objects>
 </document>

@@ -8,11 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PSTaskScheduler;
+@class PSItemLoader;
 
 @interface PSAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet PSTaskScheduler *globalRequestScheduler;
+@property (weak) IBOutlet PSItemLoader *itemLoader;
 
 @end

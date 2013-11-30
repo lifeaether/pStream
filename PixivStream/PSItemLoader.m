@@ -44,39 +44,27 @@
 
 - (void)start
 {
-    if ( [self interval] > 0 && [self maximumItemCount] > 0 ) {
+    if ( [self interval] > 0 && [self maximumItemCount] > 0 && ! [self timer] ) {
         [self setTimer:[NSTimer scheduledTimerWithTimeInterval:[self interval] target:self selector:@selector(timerFire:) userInfo:nil repeats:YES]];
+        [self load];
     }
 }
 
 - (void)stop
 {
     [[self timer] invalidate];
+    [self setTimer:nil];
 }
 
 - (void)load
 {
-    [self loadAtPageIndex:0];
-}
-
-- (void)loadAtPageIndex:(NSUInteger)pageIndex
-{
-    PSScrapper *scrapper = [PSScrapper sharedScrapper];
-    PSTaskBlock block = [scrapper scrapNewOfRange:NSMakeRange(pageIndex, 1) handler:^( NSArray *items, NSError *error ) {
+    PSTaskBlock block = [[PSScrapper sharedScrapper] scrapNewToIdentifier:[self lastIdentifier] count:[self maximumItemCount] handler:^( NSArray *items, NSError *error ) {
         for ( id item in items ) {
-            NSUInteger current = [[item valueForKey:kPSScrapperItemIdentifierKey] intValue];
-            NSUInteger last = [[self lastIdentifier] intValue];
-            if ( current > last ) {
-                [self pushItem:item];
-            } else {
-                return;
-            }
-        }
-        if ( [self numberOfItem] < [self maximumItemCount] ) {
-            [self loadAtPageIndex:pageIndex+1];
+            [self pushItem:item];
+            NSLog( @"%@", item );
         }
     }];
-    [[PSItemLoader sharedTaskScheduler] addTask:block];
+    block();
 }
 
 - (void)timerFire:(NSTimer *)timer
