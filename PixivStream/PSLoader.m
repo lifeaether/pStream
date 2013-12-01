@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 lifeaether. All rights reserved.
 //
 
-#import "PSItemLoader.h"
+#import "PSLoader.h"
 #import "PSScrapper.h"
 
-@interface PSItemLoader ()
+@interface PSLoader ()
 
 @property NSTimer *timer;
 @property NSMutableArray *items;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation PSItemLoader
+@implementation PSLoader
 
 - (instancetype)init
 {

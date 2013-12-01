@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PSItemLoader : NSObject
+@interface PSLoader : NSObject
 
 @property (nonatomic) NSTimeInterval interval;
 @property (nonatomic) NSUInteger maximumItemCount;

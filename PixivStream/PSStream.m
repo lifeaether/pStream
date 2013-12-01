@@ -7,13 +7,13 @@
 //
 
 #import "PSStream.h"
-#import "PSItemLoader.h"
+#import "PSLoader.h"
 #import "PSScrapper.h"
 
 @interface PSStream ()
 
 @property NSTimer *timer;
-@property PSItemLoader *loader;
+@property PSLoader *loader;
 
 @property id waitingItem;
 
@@ -25,7 +25,7 @@
 {
     self = [super init];
     if ( self ) {
-        [self setLoader:[[PSItemLoader alloc] init]];
+        [self setLoader:[[PSLoader alloc] init]];
     }
     return self;
 }
@@ -56,7 +56,7 @@
 {
     id item = [self waitingItem];
     if ( ! item ) {
-        PSItemLoader *loader = [self loader];
+        PSLoader *loader = [self loader];
         if ( [loader numberOfItem] > 0 ) {
             item = [loader popItem];
             NSDictionary *info = [[PSScrapper sharedScrapper] scrapPageWithIdentifier:[item valueForKey:kPSScrapperItemIdentifierKey]];
