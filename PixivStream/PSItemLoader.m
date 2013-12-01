@@ -7,7 +7,6 @@
 //
 
 #import "PSItemLoader.h"
-#import "PSTaskScheduler.h"
 #import "PSScrapper.h"
 
 @interface PSItemLoader ()
@@ -19,17 +18,6 @@
 @end
 
 @implementation PSItemLoader
-
-+ (id)sharedTaskScheduler
-{
-    static dispatch_once_t pred;
-    static id sharedInstance = nil;
-    dispatch_once( &pred, ^{
-        sharedInstance = [[PSTaskScheduler alloc] init];
-        [sharedInstance start];
-    } );
-    return sharedInstance;
-}
 
 - (instancetype)init
 {

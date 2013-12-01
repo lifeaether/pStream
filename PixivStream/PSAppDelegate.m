@@ -10,6 +10,7 @@
 #import "PSApplicationUtility.h"
 #import "PSScrapper.h"
 #import "PSStream.h"
+#import "PSConnection.h"
 
 @implementation PSAppDelegate
 
@@ -43,6 +44,15 @@
             NSLog( @"%@", error );
         }
     }];*/
+    
+    // configure conneciton
+    {
+        PSConnection *connection = [PSConnection sharedConnection];
+        [connection setInterval:1.0];
+        [connection setRequestHandler:^( NSURLRequest *request ) {
+            NSLog( @"%@", request );
+        }];
+    }
 
     [[self stream] setReceiveItemHandler:^( NSDictionary *item ) {
         NSLog( @"%@", [item valueForKey:kPSScrapperItemDateKey] );

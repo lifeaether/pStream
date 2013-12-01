@@ -10,8 +10,6 @@
 
 @interface PSItemLoader : NSObject
 
-+ (id)sharedTaskScheduler;
-
 @property (nonatomic) NSTimeInterval interval;
 @property (nonatomic) NSUInteger maximumItemCount;
 

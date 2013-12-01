@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PSTaskScheduler.h"
 
 
 extern NSString * const kPSScrapperItemIdentifierKey;

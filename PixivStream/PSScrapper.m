@@ -8,6 +8,7 @@
 
 #import "PSScrapper.h"
 #import "PSApplicationUtility.h"
+#import "PSConnection.h"
 
 static NSString * const kPSScrapperURLNewURLStringKey      = @"url.new";
 static NSString * const kPSScrapperURLSearchURLStringKey   = @"url.search";
@@ -121,8 +122,8 @@ static NSString * identifierFromLink( NSString *linkURLString )
     for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[self newURLAtIndex:i]];
         NSURLResponse *response = nil;
-        NSLog( @"%@", request );
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        NSData *data = [[PSConnection sharedConnection] sendRequest:request returningResponse:&response error:&error];
         if ( ! data ) break;
         
         NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -164,8 +165,8 @@ static NSString * identifierFromLink( NSString *linkURLString )
     for ( NSInteger i = 0; i < kPSScrapperMaxPage; i++ ) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[self searchURLWithKeyword:keywords atIndex:i]];
         NSURLResponse *response = nil;
-        NSLog( @"%@", request );
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        NSData *data = [[PSConnection sharedConnection] sendRequest:request returningResponse:&response error:&error];
         if ( ! data ) break;
         
         NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -233,8 +234,8 @@ static NSString * authorIdentifierFromURLString( NSString *urlString )
     NSURLRequest *request = [NSURLRequest requestWithURL:[self pageURLWithIndentifier:identifier]];
     NSURLResponse *response = nil;
     NSError *error = nil;
-    NSLog( @"%@", request );
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *data = [[PSConnection sharedConnection] sendRequest:request returningResponse:&response error:&error];
     NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithXMLString:htmlString options:NSXMLDocumentTidyHTML error:&error];
     if ( [self validateDocument:document] == PSScrapResultOK ) {
