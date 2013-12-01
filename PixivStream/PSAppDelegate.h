@@ -14,6 +14,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet PSStream *stream;
-@property (weak) IBOutlet NSObjectController *itemController;
+@property (weak) IBOutlet NSArrayController *itemsController;
+
+- (IBAction)openItem:(id)sender;
 
 @end

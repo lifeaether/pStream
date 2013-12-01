@@ -57,11 +57,12 @@
     [[self stream] setReceiveItemHandler:^( NSDictionary *item ) {
         NSLog( @"%@", [item valueForKey:kPSScrapperItemDateKey] );
         NSLog( @"%@ %@", [item valueForKey:kPSScrapperItemIdentifierKey], [item valueForKey:kPSScrapperItemTitleKey] );
-        id content = [[self itemController] content];
+        NSMutableDictionary *content = [NSMutableDictionary dictionary];
         [content setValue:[item valueForKey:kPSScrapperItemTitleKey] forKey:@"title"];
         [content setValue:[item valueForKey:kPSScrapperItemAuthorKey] forKey:@"author"];
         [content setValue:[item valueForKey:kPSScrapperItemDateKey] forKey:@"date"];
         [content setValue:[item valueForKey:kPSScrapperItemCaptionKey] forKey:@"caption"];
+        [content setValue:[item valueForKey:kPSScrapperItemIdentifierKey] forKey:@"identifier"];
         
         {
             NSString *tagString = @"";
@@ -81,9 +82,12 @@
             NSImage *image = [[NSImage alloc] initWithData:data];
             [content setValue:image forKey:@"image"];
         }
+        
+        NSArrayController *itemsController = [self itemsController];
+        [itemsController insertObject:content atArrangedObjectIndex:0];
     }];
     
-    [[self stream] setMaximumCount:99];
+    [[self stream] setMaximumCount:59];
     [[self stream] setInterval:60*3];
     [[self stream] start];
 }
@@ -106,5 +110,12 @@
     }
 }
 
+
+- (IBAction)openItem:(id)sender
+{
+    NSString *identifier = [sender title];
+    NSURL *url = [[PSScrapper sharedScrapper] pageURLWithIndentifier:identifier];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
 
 @end

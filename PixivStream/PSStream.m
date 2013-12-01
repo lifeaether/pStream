@@ -74,6 +74,8 @@
             [self setWaitingItem:nil];
         }
     }
+    
+    NSLog( @"PSStream queue: %ld", [[self loader] numberOfItem] );
 }
 
 @end
