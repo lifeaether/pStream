@@ -12,6 +12,19 @@
 #import "PSStream.h"
 #import "PSConnection.h"
 
+#import <Quartz/Quartz.h>
+
+@interface ImageBrowserItem : NSObject
+@property NSString *imageUID;
+@property NSString *imageRepresentationType;
+@property id imageRepresentation;
+@property NSString *imageTitle;
+@property NSString *imageSubtitle;
+@end
+
+@implementation ImageBrowserItem
+@end
+
 @implementation PSAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -57,20 +70,25 @@
     [[self stream] setReceiveItemHandler:^( NSDictionary *item ) {
         NSLog( @"%@", [item valueForKey:kPSScrapperItemDateKey] );
         NSLog( @"%@ %@", [item valueForKey:kPSScrapperItemIdentifierKey], [item valueForKey:kPSScrapperItemTitleKey] );
-        NSMutableDictionary *content = [NSMutableDictionary dictionary];
-        [content setValue:[item valueForKey:kPSScrapperItemTitleKey] forKey:@"title"];
-        [content setValue:[item valueForKey:kPSScrapperItemAuthorKey] forKey:@"author"];
-        [content setValue:[item valueForKey:kPSScrapperItemDateKey] forKey:@"date"];
-        [content setValue:[item valueForKey:kPSScrapperItemCaptionKey] forKey:@"caption"];
-        [content setValue:[item valueForKey:kPSScrapperItemIdentifierKey] forKey:@"identifier"];
+        //NSMutableDictionary *content = [NSMutableDictionary dictionary];
+        //[content setValue:[item valueForKey:kPSScrapperItemTitleKey] forKey:@"imageTitle"];
+        //[content setValue:[item valueForKey:kPSScrapperItemAuthorKey] forKey:@"imageSubtitle"];
+        //[content setValue:[item valueForKey:kPSScrapperItemDateKey] forKey:@"date"];
+        //[content setValue:[item valueForKey:kPSScrapperItemCaptionKey] forKey:@"caption"];
+        //[content setValue:[item valueForKey:kPSScrapperItemIdentifierKey] forKey:@"imageUID"];
         
-        {
+        id content = [[ImageBrowserItem alloc] init];
+        [content setImageUID:[item valueForKey:kPSScrapperItemIdentifierKey]];
+        [content setImageTitle:[item valueForKey:kPSScrapperItemTitleKey]];
+        [content setImageSubtitle:[item valueForKey:kPSScrapperItemAuthorKey]];
+        
+        /*{
             NSString *tagString = @"";
             for ( NSString *tag in [item valueForKey:kPSScrapperItemTagsKey] ) {
                 tagString = [tagString stringByAppendingFormat:@"%@ ", tag];
             }
             [content setValue:tagString forKey:@"tags"];
-        }
+        }*/
         
         {
             NSURL *url = [NSURL URLWithString:[item valueForKey:kPSScrapperItemSmallImageKey]];
@@ -80,7 +98,10 @@
             NSError *error = nil;
             NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
             NSImage *image = [[NSImage alloc] initWithData:data];
-            [content setValue:image forKey:@"image"];
+            //[content setValue:image forKey:@"imageRepresentation"];
+            //[content setValue:IKImageBrowserNSImageRepresentationType forKey:@"imageRepresentationType"];
+            [content setImageRepresentation:image];
+            [content setImageRepresentationType:IKImageBrowserNSImageRepresentationType];
         }
         
         NSArrayController *itemsController = [self itemsController];
@@ -88,7 +109,7 @@
     }];
     
     [[self stream] setMaximumCount:59];
-    [[self stream] setInterval:60*3];
+    [[self stream] setInterval:60];
     [[self stream] start];
 }
 

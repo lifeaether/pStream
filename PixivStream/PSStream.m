@@ -15,7 +15,8 @@
 @property NSTimer *timer;
 @property PSLoader *loader;
 
-@property id waitingItem;
+//@property id waitingItem;
+@property NSDate *beforeDate;
 
 @end
 
@@ -33,7 +34,8 @@
 - (void)start
 {
     if ( ! [self isRunning] && [self interval] > 0 && [self maximumCount] > 0 ) {
-        [self setTimer:[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timeFire:) userInfo:nil repeats:YES]];
+        [self setBeforeDate:[NSDate date]];
+        [self setTimer:[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeFire:) userInfo:nil repeats:YES]];
         [[self loader] setInterval:[self interval]];
         [[self loader] setMaximumItemCount:[self maximumCount]];
         [[self loader] start];
@@ -54,6 +56,7 @@
 
 - (void)timeFire:(NSTimer *)timer
 {
+    /*
     id item = [self waitingItem];
     if ( ! item ) {
         PSLoader *loader = [self loader];
@@ -74,7 +77,20 @@
             [self setWaitingItem:nil];
         }
     }
-    
+    */
+    PSLoader *loader = [self loader];
+    const NSUInteger count = [loader numberOfItem];
+    if ( count > 0 ) {
+        NSTimeInterval t = [loader interval] / count;
+        if ( [[self beforeDate] timeIntervalSinceNow] + t < 0 ) {
+            id item = [loader popItem];
+            if ( [self receiveItemHandler] ) {
+                [self receiveItemHandler]( item );
+                [self setBeforeDate:[NSDate date]];
+            }
+        }
+    } else {
+    }
     NSLog( @"PSStream queue: %ld", [[self loader] numberOfItem] );
 }
 

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="3338"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -653,40 +654,50 @@
         <window title="pStream" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="476" height="352"/>
+            <rect key="contentRect" x="335" y="390" width="476" height="385"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="476" height="352"/>
+                <rect key="frame" x="0.0" y="0.0" width="476" height="385"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="bje-6Y-Uwy">
-                        <rect key="frame" x="-1" y="-1" width="478" height="354"/>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="121.66666412353516" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="nEf-NY-yHt">
+                        <rect key="frame" x="-1" y="32" width="478" height="354"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" id="1Ic-6k-7Mn">
+                        <clipView key="contentView" copiesOnScroll="NO" id="Nxw-Gv-0hr">
                             <rect key="frame" x="1" y="1" width="476" height="352"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <collectionView maxNumberOfColumns="1" id="mlU-84-8fX">
+                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.44095855951309204" constrainsToOriginalSize="YES" animates="YES" id="V3R-1D-nfF">
                                     <rect key="frame" x="0.0" y="0.0" width="476" height="352"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <ikCellsStyle key="cellsStyleMask" none="YES" shadowed="YES" titled="YES" subtitled="YES"/>
+                                    <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
+                                    <size key="cellSize" width="100" height="100"/>
                                     <connections>
-                                        <binding destination="EiZ-zx-gYO" name="content" keyPath="arrangedObjects" id="dvU-9n-2b5"/>
-                                        <binding destination="EiZ-zx-gYO" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="dvU-9n-2b5" id="y8R-is-aYX"/>
-                                        <outlet property="itemPrototype" destination="hny-PF-yxy" id="mY1-Ji-MHI"/>
+                                        <binding destination="EiZ-zx-gYO" name="content" keyPath="arrangedObjects" id="TAa-4r-yoE"/>
+                                        <binding destination="EiZ-zx-gYO" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="TAa-4r-yoE" id="xOv-BV-7eB"/>
+                                        <binding destination="J34-dK-vGk" name="zoomValue" keyPath="values.browserScale" previousBinding="xOv-BV-7eB" id="QA0-tZ-V2T"/>
                                     </connections>
-                                </collectionView>
+                                </ikImageBrowserView>
                             </subviews>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="fQT-Rz-mdI">
-                            <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="4u2-CR-3sq">
+                            <rect key="frame" x="-100" y="-100" width="461" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="eEi-sd-J3j">
-                            <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="fub-VR-G1M">
+                            <rect key="frame" x="462" y="1" width="15" height="352"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <slider verticalHuggingPriority="750" id="mHP-la-ge9">
+                        <rect key="frame" x="319" y="8" width="137" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.10000000000000001" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="r0Y-9O-SSE"/>
+                        <connections>
+                            <binding destination="J34-dK-vGk" name="value" keyPath="values.browserScale" id="6Cx-gU-8fV"/>
+                        </connections>
+                    </slider>
                 </subviews>
             </view>
         </window>
@@ -700,118 +711,7 @@
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="57e-1l-nEO" userLabel="Preferences Window Controller" customClass="PSPreferenceWindowController"/>
         <customObject id="sHG-lu-0u8" userLabel="Stream" customClass="PSStream"/>
-        <collectionViewItem id="hny-PF-yxy">
-            <connections>
-                <outlet property="view" destination="7ms-Bh-6S8" id="x9e-tE-eYh"/>
-            </connections>
-        </collectionViewItem>
-        <view id="7ms-Bh-6S8">
-            <rect key="frame" x="0.0" y="0.0" width="476" height="147"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-            <subviews>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="36w-gK-pCB">
-                    <rect key="frame" x="0.0" y="0.0" width="476" height="147"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <view key="contentView">
-                        <rect key="frame" x="1" y="1" width="474" height="145"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="pG4-h7-dUb">
-                                <rect key="frame" x="15" y="8" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="IQK-Se-IBE"/>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.image" id="x1c-1B-Kqe"/>
-                                </connections>
-                            </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="hCj-gk-9XE">
-                                <rect key="frame" x="121" y="118" width="166" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date" id="o3Q-Ri-yOa">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.date" id="wBG-Lz-teT"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="lQI-vv-tZV">
-                                <rect key="frame" x="121" y="94" width="340" height="17"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="Y6m-DM-SWF">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.title" id="nE3-fd-WTm"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="FT2-6U-RjD">
-                                <rect key="frame" x="291" y="118" width="170" height="14"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Author" id="b85-tf-2CF">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.author" id="IGA-Jx-cqO"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="exp-d3-6sv">
-                                <rect key="frame" x="121" y="72" width="340" height="14"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tags" id="fR5-GF-ETS">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.tags" id="5Xp-sX-Ucr"/>
-                                </connections>
-                            </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="wTC-Q9-nsq">
-                                <rect key="frame" x="121" y="8" width="340" height="56"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Caption" id="fsy-XD-l0d">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="hny-PF-yxy" name="value" keyPath="representedObject.caption" id="0cX-z5-lFb"/>
-                                </connections>
-                            </textField>
-                            <button verticalHuggingPriority="750" id="3Lx-cm-k25">
-                                <rect key="frame" x="15" y="115" width="100" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundTextured" title="Identifier" bezelStyle="texturedRounded" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h7E-iM-g5u">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openItem:" target="494" id="fLr-Qq-0l9"/>
-                                    <binding destination="hny-PF-yxy" name="title" keyPath="representedObject.identifier" id="hiq-v5-7aa"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                    <color key="fillColor" red="0.20516451344099362" green="0.37886007119653142" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                </box>
-            </subviews>
-        </view>
-        <arrayController selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="EiZ-zx-gYO" userLabel="Items">
-            <declaredKeys>
-                <string>image</string>
-                <string>date</string>
-                <string>title</string>
-                <string>author</string>
-                <string>tags</string>
-                <string>caption</string>
-            </declaredKeys>
-        </arrayController>
+        <arrayController objectClassName="ImageBrowserItem" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="EiZ-zx-gYO" userLabel="Items"/>
+        <userDefaultsController representsSharedInstance="YES" id="J34-dK-vGk"/>
     </objects>
 </document>

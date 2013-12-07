@@ -25,6 +25,7 @@
 		CE7BF372183F998C00315887 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF370183F998C00315887 /* InfoPlist.strings */; };
 		CE7BF374183F998C00315887 /* PixivStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF373183F998C00315887 /* PixivStreamTests.m */; };
 		CE7BF37E183F9DAA00315887 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF37D183F9DAA00315887 /* Preferences.xib */; };
+		CEA063A81852CB5F00578554 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA063A71852CB5F00578554 /* Quartz.framework */; };
 		CEC96418183FA1330044E5FE /* PSPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		CE7BF371183F998C00315887 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CE7BF373183F998C00315887 /* PixivStreamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixivStreamTests.m; sourceTree = "<group>"; };
 		CE7BF37D183F9DAA00315887 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		CEA063A71852CB5F00578554 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CEC96416183FA1330044E5FE /* PSPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPreferenceWindowController.h; sourceTree = "<group>"; };
 		CEC96417183FA1330044E5FE /* PSPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPreferenceWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA063A81852CB5F00578554 /* Quartz.framework in Frameworks */,
 				CE7BF34A183F998C00315887 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +120,7 @@
 		CE7BF348183F998C00315887 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEA063A71852CB5F00578554 /* Quartz.framework */,
 				CE7BF349183F998C00315887 /* Cocoa.framework */,
 				CE7BF368183F998C00315887 /* XCTest.framework */,
 				CE7BF34B183F998C00315887 /* Other Frameworks */,
